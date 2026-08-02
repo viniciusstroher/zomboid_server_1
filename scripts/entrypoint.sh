@@ -29,13 +29,13 @@ install_server() {
     echo "[SteamCMD] Download concluido."
 }
 
-# if [ ! -f "${PZ_DIR}/start-server.sh" ]; then
-#     echo "[Init] Arquivos do servidor nao encontrados. Baixando..."
-#     install_server
-# else
-#     echo "[Init] Atualizando servidor..."
-#     install_server
-# fi
+if [ ! -f "${PZ_DIR}/start-server.sh" ]; then
+    echo "[Init] Arquivos do servidor nao encontrados. Baixando..."
+    install_server
+else
+    echo "[Init] Atualizando servidor..."
+    install_server
+fi
 
 mkdir -p "${HOME}/Zomboid"
 if [ ! -L "${HOME}/Zomboid/Server" ]; then
