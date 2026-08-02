@@ -25,7 +25,8 @@ services:
     stdin_open: true
     tty: true
     networks:
-      - zomboid_net
+      zomboid_net:
+        ipv4_address: 172.30.0.2
 
   playit:
     image: ghcr.io/playit-cloud/playit-agent:latest
@@ -38,8 +39,14 @@ services:
     environment:
       - SECRET_KEY=63af71d1ece4ad3645cdd7b2c12af265383b8253e9e5ee85a456cbf637251309
     networks:
-      - zomboid_net
+      zomboid_net:
+        ipv4_address: 172.30.0.3
       
 networks:
   zomboid_net:
     driver: bridge
+    ipam:
+      config:
+        - subnet: 172.30.0.0/16
+          gateway: 172.30.0.1
+  
