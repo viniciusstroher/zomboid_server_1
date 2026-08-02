@@ -1,0 +1,45 @@
+version: "3.8"
+
+services:
+  zomboid:
+    build: .
+    container_name: zomboid_server
+    restart: unless-stopped
+    ports:
+      - "16261:16261/udp"
+      - "16262:16262/udp"
+      - "8766:8766/udp"
+      - "8767:8767/udp"
+    volumes:
+      - ./data:/data
+      - ./server_files:/opt/pzserver
+    command: ["/opt/scripts/entrypoint.sh"]
+    # command: ["tail", "-f", "/dev/null"]
+    environment:
+      - STEAM_BETA=unstable
+      - SERVER_NAME=venizao
+      - SERVER_ADMIN_PASSWORD=tiririca123
+      - SERVER_MAX_PLAYERS=32
+      - SERVER_PUBLIC=true
+      - SERVER_PORT=16261
+    stdin_open: true
+    tty: true
+    networks:
+      - zomboid_net
+
+  playit:
+    image: ghcr.io/playit-cloud/playit-agent:latest
+    container_name: playit
+    restart: unless-stopped
+    volumes:
+      - ./playit:/etc/playit
+    stdin_open: true
+    tty: true
+    environment:
+      - SECRET_KEY=63af71d1ece4ad3645cdd7b2c12af265383b8253e9e5ee85a456cbf637251309
+    networks:
+      - zomboid_net
+      
+networks:
+  zomboid_net:
+    driver: bridge
