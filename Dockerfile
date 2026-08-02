@@ -31,4 +31,4 @@ VOLUME ["/data", "/opt/pzserver"]
 
 WORKDIR /opt/pzserver
 
-# ENTRYPOINT ["/opt/scripts/entrypoint.sh"]
+ENTRYPOINT ["/opt/scripts/entrypoint.sh"]
