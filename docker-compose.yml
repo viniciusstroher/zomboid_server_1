@@ -13,8 +13,8 @@ services:
     volumes:
       - ./data:/data
       - ./server_files:/opt/pzserver
-    command: ["/opt/scripts/entrypoint.sh"]
-    # command: ["tail", "-f", "/dev/null"]
+    # command: ["/opt/scripts/entrypoint.sh"]
+    command: ["tail", "-f", "/dev/null"]
     environment:
       - STEAM_BETA=unstable
       - SERVER_NAME=venizao
