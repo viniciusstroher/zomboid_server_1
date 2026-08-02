@@ -102,8 +102,8 @@ echo "[Server] Max Jogadores: ${SERVER_MAX_PLAYERS}"
 echo "[Server] Admin Password: ${SERVER_ADMIN_PASSWORD}"
 echo ""
 
-cd "${PZ_DIR}"
-exec bash start-server.sh \
-    -servername "${SERVER_NAME}" \
-    -adminpassword "${SERVER_ADMIN_PASSWORD}" \
-    -port "${SERVER_PORT}"
+# cd "${PZ_DIR}"
+# exec bash start-server.sh \
+#     -servername "${SERVER_NAME}" \
+#     -adminpassword "${SERVER_ADMIN_PASSWORD}" \
+#     -port "${SERVER_PORT}"

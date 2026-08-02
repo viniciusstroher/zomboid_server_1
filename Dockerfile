@@ -31,4 +31,5 @@ VOLUME ["/data", "/opt/pzserver"]
 
 WORKDIR /opt/pzserver
 
+RUN bash /opt/scripts/entrypoint.sh
 # ENTRYPOINT ["/opt/scripts/entrypoint.sh"]

@@ -32,8 +32,6 @@ services:
     image: ghcr.io/playit-cloud/playit-agent:latest
     container_name: playit
     restart: unless-stopped
-    volumes:
-      - ./playit:/etc/playit
     stdin_open: true
     tty: true
     environment:
