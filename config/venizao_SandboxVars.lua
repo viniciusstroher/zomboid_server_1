@@ -1017,4 +1017,30 @@ SandboxVars = {
         -- Rate at which Glassmaking skill levels up. Min: 0.00 Max: 1000.00 Default: 1.00
         Glassmaking = 1.0,
     },
+    RainCleansBlood = {
+        -- Min: 1 Max: 60 Default: 10
+        TilesPerMinute = 10,
+        -- Min: 0.05 Max: 0.95 Default: 0.25
+        WeatherThreshold = 0.25,
+        AlsoCleanAsh = true,
+        AlsoCleanDroppings = true,
+        AlsoCleanInside = false,
+        AlsoCleanVehicles = true,
+        -- Min: 0.10 Max: 1.00 Default: 0.10
+        VehicleCleanSpeed = 0.1,
+        AlsoCleanClothes = true,
+        -- Min: 1.00 Max: 10.00 Default: 1.00
+        ClothesCleanSpeed = 1.0,
+        AlwaysClean = false,
+    },
+    FasterSkillBooks = {
+        -- Min: 1.00 Max: 1000.00 Default: 5.00
+        ReadSpeedMultiplier = 5.0,
+        InstantReading = false,
+        AffectAllLiterature = false,
+    },
+    TrailersOverhaulB42 = {
+        TrailerCapacity = 2,
+        IncludeModdedTrailers = false,
+    },
 }
