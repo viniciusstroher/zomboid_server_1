@@ -11,9 +11,14 @@ services:
       - "8766:8766/udp"
       - "8767:8767/udp"
     volumes:
-      - ./data:/data
+      - ./saves:/data/saves
+      - ./config/venizao.ini:/data/venizao.ini
+      - ./config/venizao_SandboxVars.lua:/data/venizao_SandboxVars.lua
+      - ./config/venizao_spawnpoints.lua:/data/venizao_spawnpoints.lua
+      - ./config/venizao_spawnregions.lua:/data/venizao_spawnregions.lua
       - ./server_files:/opt/pzserver
-    # command: ["/opt/scripts/entrypoint.sh"]
+      - ./config:/opt/pzserver/config
+    
     command: ["/opt/pzserver/start-server.sh", "-servername", "venizao", "-adminpassword", "venizao", "-port", "16261"]
     environment:
       - STEAM_BETA=unstable
