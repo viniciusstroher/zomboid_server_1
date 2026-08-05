@@ -3,7 +3,8 @@ set -e
 
 CONTAINER_NAME="zomboid_server"
 CONTAINER_PATH="/root/Zomboid/Saves/Multiplayer/venizao"
-BACKUP_DIR="/home/veni/zomboid_server_1/saves/backups"
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+BACKUP_DIR="${SCRIPT_DIR}/../saves/backups"
 TIMESTAMP=$(date '+%Y-%m-%d_%H-%M-%S')
 ZIP_NAME="venizao_saves_${TIMESTAMP}.zip"
 TEMP_DIR=$(mktemp -d)
