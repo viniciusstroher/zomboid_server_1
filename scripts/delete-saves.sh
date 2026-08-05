@@ -32,7 +32,7 @@ echo "[Delete] Removendo o container antigo..."
 docker rm "${CONTAINER_NAME}" 2>/dev/null || echo "[Delete] Container ja foi removido."
 
 echo "[Delete] Recriando o container com /root/Zomboid limpo..."
-cd "${SCRIPT_DIR}/.." && docker compose up -d
+cd "${SCRIPT_DIR}/.." && docker-compose up -d
 
 echo ""
 echo "[Delete] Operacao concluida. Container recriado com /root/Zomboid limpo."
