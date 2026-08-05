@@ -1043,4 +1043,7 @@ SandboxVars = {
         TrailerCapacity = 2,
         IncludeModdedTrailers = false,
     },
+    TwisTonFireFasterActions = {
+        TimedActionSpeed = 300,
+    },
 }
