@@ -27,8 +27,6 @@ RUN chmod +x /opt/scripts/*.sh
 
 EXPOSE 16261/udp 16262/udp
 
-VOLUME ["/data/saves"]
-
 WORKDIR /opt/pzserver
 
 RUN bash /opt/scripts/entrypoint.sh

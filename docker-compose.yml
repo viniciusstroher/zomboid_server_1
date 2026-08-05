@@ -11,7 +11,6 @@ services:
       - "8766:8766/udp"
       - "8767:8767/udp"
     volumes:
-      - ./saves:/data/saves
       - ./config/venizao.ini:/data/venizao.ini
       - ./config/venizao_SandboxVars.lua:/data/venizao_SandboxVars.lua
       - ./config/venizao_spawnpoints.lua:/data/venizao_spawnpoints.lua
