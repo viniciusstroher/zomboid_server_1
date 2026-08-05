@@ -16,8 +16,6 @@ services:
       - ./config/venizao_SandboxVars.lua:/data/venizao_SandboxVars.lua
       - ./config/venizao_spawnpoints.lua:/data/venizao_spawnpoints.lua
       - ./config/venizao_spawnregions.lua:/data/venizao_spawnregions.lua
-      - ./server_files:/opt/pzserver
-      - ./config:/opt/pzserver/config
     
     command: ["/opt/pzserver/start-server.sh", "-servername", "venizao", "-adminpassword", "venizao", "-port", "16261"]
     environment:
