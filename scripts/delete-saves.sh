@@ -35,11 +35,14 @@ else
   CONTAINER_WAS_RUNNING=false
 fi
 
-echo "[Delete] Removendo saves..."
-docker exec "${CONTAINER_NAME}" rm -rf "${CONTAINER_PATH}" 2>/dev/null && echo "[Delete] Saves removidos com sucesso." || echo "[Delete] Nenhum save encontrado para remover."
-
-echo "[Delete] Removendo backups internos..."
-docker exec "${CONTAINER_NAME}" rm -rf /root/Zomboid/Saves/Multiplayer/venizao_backup* 2>/dev/null || true
+SAVES_DIR="$(dirname "$(readlink -f "$0")")/../saves"
+echo "[Delete] Removendo saves da pasta state (${SAVES_DIR})..."
+if [ -d "${SAVES_DIR}" ]; then
+  rm -rf "${SAVES_DIR}"
+  echo "[Delete] Pasta state removida com sucesso."
+else
+  echo "[Delete] Nenhuma pasta state encontrada para remover."
+fi
 
 if [ "${CONTAINER_WAS_RUNNING}" = true ]; then
   echo "[Delete] Reiniciando o container ${CONTAINER_NAME}..."

@@ -2,9 +2,9 @@
 set -e
 
 CONTAINER_NAME="zomboid_server"
-CONTAINER_PATH="/root/Zomboid/Saves/Multiplayer/venizao"
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-BACKUP_DIR="${SCRIPT_DIR}/../saves/backups"
+BACKUP_DIR="${SCRIPT_DIR}/../backups"
+SAVES_DIR="${SCRIPT_DIR}/../saves"
 
 echo "============================================="
 echo "  RESTAURAR SAVES DO SERVIDOR - ZOMBOID"
@@ -19,11 +19,11 @@ fi
 BACKUPS=()
 while IFS= read -r -d '' file; do
   BACKUPS+=("$file")
-done < <(find "${BACKUP_DIR}" -maxdepth 1 -name "venizao_saves_*.zip" -print0 | sort -z)
+done < <(find "${BACKUP_DIR}" -maxdepth 1 -name "venizao_state_*.zip" -print0 | sort -z)
 
 if [ ${#BACKUPS[@]} -eq 0 ]; then
   echo "Nenhum backup encontrado em ${BACKUP_DIR}."
-  echo "Execute backup-saves.sh primeiro."
+  echo "Execute scripts/backup-saves.sh primeiro."
   exit 0
 fi
 
@@ -66,33 +66,18 @@ if [ "${CONFIRM}" != "RESTAURAR" ]; then
 fi
 
 echo ""
-echo "[Restore] Verificando se o container esta rodando..."
-if docker ps --format '{{.Names}}' | grep -q "^${CONTAINER_NAME}$"; then
-  echo "[Restore] Parando o container ${CONTAINER_NAME}..."
-  docker stop "${CONTAINER_NAME}"
-  CONTAINER_WAS_RUNNING=true
-else
-  echo "[Restore] Container ja esta parado."
-  CONTAINER_WAS_RUNNING=false
-fi
+echo "[Restore] Parando o container ${CONTAINER_NAME}..."
+docker stop "${CONTAINER_NAME}" 2>/dev/null || echo "[Restore] Container ja estava parado."
 
-echo "[Restore] Removendo saves atuais..."
-docker exec "${CONTAINER_NAME}" rm -rf "${CONTAINER_PATH}" 2>/dev/null || true
+echo "[Restore] Removendo pasta state atual..."
+rm -rf "${SAVES_DIR}" 2>/dev/null || true
+mkdir -p "${SAVES_DIR}"
 
-echo "[Restore] Extraindo backup..."
-TEMP_DIR=$(mktemp -d)
-unzip -q "${SELECTED}" -d "${TEMP_DIR}"
+echo "[Restore] Extraindo backup para a pasta state..."
+unzip -q "${SELECTED}" -d "${SAVES_DIR}"
 
-echo "[Restore] Copiando saves para o container..."
-docker cp "${TEMP_DIR}/venizao" "${CONTAINER_NAME}:${CONTAINER_PATH}"
-
-echo "[Restore] Limpando arquivos temporarios..."
-rm -rf "${TEMP_DIR}"
-
-if [ "${CONTAINER_WAS_RUNNING}" = true ]; then
-  echo "[Restore] Reiniciando o container ${CONTAINER_NAME}..."
-  docker start "${CONTAINER_NAME}"
-fi
+echo "[Restore] Ligando o servidor..."
+docker start "${CONTAINER_NAME}"
 
 echo ""
-echo "[Restore] Backups restaurados com sucesso!"
+echo "[Restore] Backups restaurados com sucesso! Servidor iniciado."

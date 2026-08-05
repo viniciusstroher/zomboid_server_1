@@ -1043,7 +1043,8 @@ SandboxVars = {
         TrailerCapacity = 2,
         IncludeModdedTrailers = false,
     },
-    TwisTonFireFasterActions = {
-        TimedActionSpeed = 300,
+    TWF_FA = {
+        -- Min: 25 Max: 1000 Default: 200
+        SpeedPercent = 200,
     },
 }

@@ -1,24 +1,21 @@
 #!/bin/bash
 set -e
 
-CONTAINER_NAME="zomboid_server"
-CONTAINER_PATH="/root/Zomboid/Saves/Multiplayer/venizao"
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-BACKUP_DIR="${SCRIPT_DIR}/../saves/backups"
+SAVES_DIR="${SCRIPT_DIR}/../saves"
+BACKUP_DIR="${SCRIPT_DIR}/../backups"
 TIMESTAMP=$(date '+%Y-%m-%d_%H-%M-%S')
-ZIP_NAME="venizao_saves_${TIMESTAMP}.zip"
-TEMP_DIR=$(mktemp -d)
-
-echo "[Backup] Copiando saves do container ${CONTAINER_NAME}..."
-docker cp "${CONTAINER_NAME}:${CONTAINER_PATH}" "${TEMP_DIR}/venizao"
+ZIP_NAME="venizao_state_${TIMESTAMP}.zip"
 
 mkdir -p "${BACKUP_DIR}"
 
-echo "[Backup] Gerando zip ${ZIP_NAME}..."
-cd "${TEMP_DIR}" && zip -r "${BACKUP_DIR}/${ZIP_NAME}" venizao
-
-echo "[Backup] Limpando arquivos temporarios..."
-rm -rf "${TEMP_DIR}"
+echo "[Backup] Gerando zip da pasta state..."
+if [ -d "${SAVES_DIR}" ]; then
+  cd "${SAVES_DIR}" && zip -r "${BACKUP_DIR}/${ZIP_NAME}" .
+else
+  echo "[Backup] ERRO: Pasta state nao encontrada em ${SAVES_DIR}"
+  exit 1
+fi
 
 echo "[Backup] Concluido: ${BACKUP_DIR}/${ZIP_NAME}"
 ls -lh "${BACKUP_DIR}/${ZIP_NAME}"
