@@ -27,7 +27,7 @@ RUN chmod +x /opt/scripts/*.sh
 
 EXPOSE 16261/udp 16262/udp
 
-VOLUME ["/data", "/opt/pzserver"]
+VOLUME ["/data/saves", "/data/config"]
 
 WORKDIR /opt/pzserver
 
