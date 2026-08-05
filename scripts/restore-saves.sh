@@ -4,7 +4,7 @@ set -e
 CONTAINER_NAME="zomboid_server"
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 BACKUP_DIR="${SCRIPT_DIR}/../backups"
-SAVES_DIR="${SCRIPT_DIR}/../saves"
+CONTAINER_PATH="/root/Zomboid"
 
 echo "============================================="
 echo "  RESTAURAR SAVES DO SERVIDOR - ZOMBOID"
@@ -19,7 +19,7 @@ fi
 BACKUPS=()
 while IFS= read -r -d '' file; do
   BACKUPS+=("$file")
-done < <(find "${BACKUP_DIR}" -maxdepth 1 -name "venizao_state_*.zip" -print0 | sort -z)
+done < <(find "${BACKUP_DIR}" -maxdepth 1 -name "venizao_backup_*.zip" -print0 | sort -z)
 
 if [ ${#BACKUPS[@]} -eq 0 ]; then
   echo "Nenhum backup encontrado em ${BACKUP_DIR}."
@@ -65,19 +65,30 @@ if [ "${CONFIRM}" != "RESTAURAR" ]; then
   exit 0
 fi
 
+TEMP_DIR=$(mktemp -d)
+cleanup() {
+  rm -rf "${TEMP_DIR}"
+}
+trap cleanup EXIT
+
 echo ""
 echo "[Restore] Parando o container ${CONTAINER_NAME}..."
 docker stop "${CONTAINER_NAME}" 2>/dev/null || echo "[Restore] Container ja estava parado."
 
-echo "[Restore] Removendo pasta state atual..."
-rm -rf "${SAVES_DIR}" 2>/dev/null || true
-mkdir -p "${SAVES_DIR}"
+echo "[Restore] Extraindo backup..."
+unzip -q "${SELECTED}" -d "${TEMP_DIR}"
 
-echo "[Restore] Extraindo backup para a pasta state..."
-unzip -q "${SELECTED}" -d "${SAVES_DIR}"
+echo "[Restore] Removendo container antigo..."
+docker rm "${CONTAINER_NAME}" 2>/dev/null || echo "[Restore] Container ja foi removido."
+
+echo "[Restore] Recriando container limpo..."
+cd "${SCRIPT_DIR}/.." && docker compose create zomboid
+
+echo "[Restore] Copiando dados para ${CONTAINER_PATH}..."
+docker cp "${TEMP_DIR}/Zomboid/." "${CONTAINER_NAME}:${CONTAINER_PATH}/"
 
 echo "[Restore] Ligando o servidor..."
 docker start "${CONTAINER_NAME}"
 
 echo ""
-echo "[Restore] Backups restaurados com sucesso! Servidor iniciado."
+echo "[Restore] Backup restaurado com sucesso! Servidor iniciado."
