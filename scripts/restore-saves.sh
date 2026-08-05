@@ -82,7 +82,7 @@ echo "[Restore] Removendo container antigo..."
 docker rm "${CONTAINER_NAME}" 2>/dev/null || echo "[Restore] Container ja foi removido."
 
 echo "[Restore] Recriando container limpo..."
-cd "${SCRIPT_DIR}/.." && docker compose create zomboid
+cd "${SCRIPT_DIR}/.." && docker-compose create zomboid
 
 echo "[Restore] Copiando dados para ${CONTAINER_PATH}..."
 docker cp "${TEMP_DIR}/Zomboid/." "${CONTAINER_NAME}:${CONTAINER_PATH}/"
