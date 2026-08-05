@@ -14,7 +14,7 @@ services:
       - ./data:/data
       - ./server_files:/opt/pzserver
     # command: ["/opt/scripts/entrypoint.sh"]
-    command: ["tail", "-f", "/dev/null"]
+    command: ["/opt/pzserver/start-server.sh", "-servername", "venizao", "-adminpassword", "venizao", "-port", "16261"]
     environment:
       - STEAM_BETA=unstable
       - SERVER_NAME=venizao
