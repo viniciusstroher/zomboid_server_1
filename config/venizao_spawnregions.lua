@@ -4,8 +4,8 @@ function SpawnRegions()
 		{ name = "West Point, KY", file = "media/maps/West Point, KY/spawnpoints.lua" },
 		{ name = "Rosewood, KY", file = "media/maps/Rosewood, KY/spawnpoints.lua" },
 		{ name = "Riverside, KY", file = "media/maps/Riverside, KY/spawnpoints.lua" },
-		{ name = "Louisville, KY", file = "media/maps/Louisville, KY/spawnpoints.lua" },
+		
 		-- Uncomment the line below to add a custom spawnpoint for this server.
---		{ name = "Twiggy's Bar", serverfile = "venizao_spawnpoints.lua" },
+		{ name = "Louisville, KY", serverfile = "venizao_spawnpoints.lua" },
 	}
 end
