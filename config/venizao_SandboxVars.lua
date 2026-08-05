@@ -107,7 +107,7 @@ SandboxVars = {
     -- 7 = 2 - 6 Months
     -- 8 = 6 - 12 Months
     -- 9 = Disabled
-    WaterShut = 2,
+    WaterShut = 9,
     -- How long after the default start date (July 9, 1993) that the world's electricity turns off for good. Default = 14 - 30 Days
     -- 1 = Instant
     -- 2 = 14 - 30 Days
@@ -118,7 +118,7 @@ SandboxVars = {
     -- 7 = 2 - 6 Months
     -- 8 = 6 - 12 Months
     -- 9 = Disabled
-    ElecShut = 2,
+    ElecShut = 9,
     -- How long alarm batteries can last for after the power shuts off. Default = 0 - 30 Days
     -- 1 = Instant
     -- 2 = 0 - 30 Days
@@ -832,7 +832,7 @@ SandboxVars = {
         -- 2 = Navigate
         -- 3 = Basic Navigation
         -- 4 = Random
-        Cognition = 3,
+        Cognition = 4,
         -- Min: 0 Max: 100 Default: 0
         DoorOpeningPercentage = 0,
         -- How often zombies can crawl under parked vehicles. Default = Often
@@ -911,7 +911,7 @@ SandboxVars = {
     },
     ZombieConfig = {
         -- Set by the "Zombie Count" population option, or by a custom number here. Insane = 2.5, Very High = 1.6, High = 1.2, Normal = 0.65, Low = 0.15, None = 0.0. Min: 0.00 Max: 4.00 Default: 0.65
-        PopulationMultiplier = 0.65,
+        PopulationMultiplier = 0.80,
         -- A multiplier for the desired zombie population at the start of the game. Insane = 3.0, Very High = 2.0, High = 1.5, Normal = 1.0, Low = 0.5, None = 0.0. Min: 0.00 Max: 4.00 Default: 1.00
         PopulationStartMultiplier = 1.0,
         -- A multiplier for the desired zombie population on the peak day. Insane = 3.0, Very High = 2.0, High = 1.5, Normal = 1.0, Low = 0.5, None = 0.0. Min: 0.00 Max: 4.00 Default: 1.50
@@ -943,7 +943,7 @@ SandboxVars = {
     },
     MultiplierConfig = {
         -- The rate at which all skills level up. Min: 0.00 Max: 1000.00 Default: 1.00
-        Global = 1.0,
+        Global = 3.0,
         -- When enabled, all skills will use the Global Multiplier.
         GlobalToggle = true,
         -- Rate at which Fitness skill levels up. Min: 0.00 Max: 1000.00 Default: 1.00
