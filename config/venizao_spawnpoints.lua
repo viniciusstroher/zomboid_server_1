@@ -1,4 +1,4 @@
-function SpawnRegions()
+function SpawnPoints()
 	return {
         unemployed = {
             { worldX = 45, worldY = 10, posX = 82,  posY = 254, posZ = 0 },
